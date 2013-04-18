@@ -8,6 +8,9 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
+  // Experimenting with git & grunt builds
+  grunt.loadNpmTasks('grunt-git');
+
   // configurable paths
   var yeomanConfig = {
     app: 'app',
@@ -17,6 +20,18 @@ module.exports = function (grunt) {
   try {
     yeomanConfig.app = require('./component.json').appPath || yeomanConfig.app;
   } catch (e) {}
+
+
+//  // Build a multi task "files" object dynamically.
+//  function getFiles(srcdir, destdir, wildcard) {
+//    var path = require('path');
+//    var files = {};
+//    grunt.file.expand({cwd: srcdir}, wildcard).forEach(function(relpath) {
+//      files[path.join(destdir, relpath)] = path.join(srcdir, relpath);
+//    });
+//    return files;
+//  }
+
 
   grunt.initConfig({
     yeoman: yeomanConfig,
@@ -256,6 +271,24 @@ module.exports = function (grunt) {
           ]
         }]
       }
+    },
+    git: {
+        commit: {
+            options: {
+                command: 'commit',
+                message: 'grunt testing'
+            }
+            ,files: {
+                //src: ['test.txt']
+                //src: grunt.file.expand('**/*')
+                src: grunt.file.expand({cwd: cwd},['**/*'])
+            }
+        },
+        push: {
+            options: {
+                command: 'push'
+            }
+        }
     }
   });
 
@@ -277,6 +310,10 @@ module.exports = function (grunt) {
     'compass',
     'connect:test'
     ,'karma'
+  ]);
+
+  grunt.registerTask('gitify', [
+    'git'
   ]);
 
   grunt.registerTask('build', [
