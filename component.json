@@ -8,8 +8,8 @@
     "angular-resource": "~1.0.5",
     "angular-cookies": "~1.0.5",
     "angular-sanitize": "~1.0.5",
-    "jquery-retina-display": "git://github.com/kingbin/jquery-retina-display.git"
-  },
+    "jquery-retina-display": "https://github.com/kingbin/jquery-retina-display.git#v0.1.2"
+},
   "devDependencies": {
     "angular-mocks": "~1.0.5",
     "angular-scenario": "~1.0.5"
